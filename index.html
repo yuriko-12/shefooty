@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SheFooty+ — El canal del fútbol femenino</title>
+<meta name="description" content="Análisis táctico, historias y highlights del fútbol femenino. Nuevos videos cada martes y viernes.">
+<meta property="og:title" content="SheFooty+ — El canal del fútbol femenino">
+<meta property="og:description" content="Análisis táctico, historias y highlights del fútbol femenino. Nuevos videos cada martes y viernes.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/logo/SheFootyPlus_Master_Flat.svg" type="image/svg+xml">
+
+<style>
+/* ============================================================
+   SheFooty+ — landing page
+   Paleta oficial: Carbon Black #0B0D0F · Signal White #F4F6F7 · Electric Lime #B9FF00
+   Todo en un archivo. Sin dependencias externas.
+   Variables de marca en :root — cambia ahí los colores.
+   ============================================================ */
+
+:root{
+  --bg:        #0B0D0F;
+  --bg-2:      #0F1214;
+  --surface:   #15181B;
+  --surface-2: #1C2126;
+  --line:      #292E33;
+
+  --ink:       #F4F6F7;
+  --ink-mid:   #AFB6BB;
+  --ink-dim:   #767E85;
+
+  --lime:      #B9FF00;
+  --violet:    #8B5CFF;
+  --hot:       #FF4D8D;
+
+  --radius:   18px;
+  --radius-s: 10px;
+  --maxw:     1180px;
+
+  --font: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font);
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+
+:focus-visible{ outline:2px solid var(--lime); outline-offset:3px; border-radius:4px; }
+
+.wrap{
+  width:100%;
+  max-width:var(--maxw);
+  margin-inline:auto;
+  padding-inline:24px;
+}
+
+/* ---------- tipografía ---------- */
+h1,h2,h3,h4{
+  margin:0;
+  line-height:1.02;
+  letter-spacing:-0.035em;
+  font-weight:800;
+}
+h1{ font-size:clamp(2.9rem, 7.5vw, 6.1rem); text-transform:uppercase; }
+h2{ font-size:clamp(2rem, 4.6vw, 3.4rem); text-transform:uppercase; }
+h3{ font-size:1.22rem; letter-spacing:-0.02em; }
+p{ margin:0; }
+
+.eyebrow{
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:.72rem; font-weight:800;
+  letter-spacing:.22em; text-transform:uppercase;
+  color:var(--lime);
+}
+.eyebrow::before{
+  content:""; width:26px; height:2px; background:var(--lime); display:block;
+}
+
+.lead{ color:var(--ink-mid); font-size:1.09rem; max-width:56ch; }
+
+/* ---------- botones ---------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  padding:15px 26px;
+  border:1px solid transparent;
+  border-radius:100px;
+  font-size:.95rem; font-weight:800; letter-spacing:-0.01em;
+  cursor:pointer;
+  transition:transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+  white-space:nowrap;
+}
+.btn:hover{ transform:translateY(-2px); }
+.btn:active{ transform:translateY(0); }
+
+.btn--yt{ background:var(--hot); color:#fff; }
+.btn--yt:hover{ background:#ff6ba1; }
+
+.btn--lime{ background:var(--lime); color:#0B0D0F; }
+.btn--lime:hover{ background:#cfff5c; }
+
+.btn--ghost{ background:transparent; color:var(--ink); border-color:var(--line); }
+.btn--ghost:hover{ border-color:var(--ink-mid); background:rgba(255,255,255,.04); }
+
+.btn--sm{ padding:11px 20px; font-size:.86rem; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+.nav{
+  position:sticky; top:0; z-index:60;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  background:rgba(11,13,15,.72);
+  border-bottom:1px solid transparent;
+  transition:border-color .25s ease, background .25s ease;
+}
+.nav.is-stuck{ border-bottom-color:var(--line); background:rgba(11,13,15,.92); }
+
+.nav__inner{
+  display:flex; align-items:center; justify-content:space-between; gap:28px;
+  height:74px;
+}
+
+.logo{ display:flex; align-items:center; gap:12px; flex-shrink:0; }
+.logo__mark{
+  width:44px; height:33px; flex-shrink:0;
+  display:block;
+}
+.logo__mark svg{ width:100%; height:100%; display:block; }
+.logo__text{
+  font-weight:800; font-size:1.16rem;
+  letter-spacing:.02em;
+}
+.logo__text span{ color:var(--lime); }
+
+.nav__links{ display:flex; gap:30px; margin-left:auto; }
+.nav__links a{
+  font-size:.9rem; font-weight:600; color:var(--ink-mid);
+  transition:color .18s ease; position:relative;
+}
+.nav__links a:hover{ color:var(--ink); }
+.nav__links a::after{
+  content:""; position:absolute; left:0; bottom:-6px;
+  width:0; height:2px; background:var(--lime);
+  transition:width .22s ease;
+}
+.nav__links a:hover::after{ width:100%; }
+
+.nav__cta{ flex-shrink:0; }
+
+.burger{
+  display:none; width:42px; height:42px;
+  background:transparent; border:1px solid var(--line); border-radius:10px;
+  cursor:pointer; padding:0; place-items:center;
+}
+.burger span{
+  display:block; width:18px; height:2px; background:var(--ink);
+  position:relative;
+}
+.burger span::before,.burger span::after{
+  content:""; position:absolute; left:0; width:18px; height:2px; background:var(--ink);
+}
+.burger span::before{ top:-6px; }
+.burger span::after{ top:6px; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;
+  padding:clamp(56px, 9vw, 104px) 0 clamp(48px, 7vw, 80px);
+  overflow:hidden;
+}
+.hero__glow{
+  position:absolute; pointer-events:none; border-radius:50%;
+  filter:blur(90px); opacity:.5;
+}
+.hero__glow--a{ width:520px; height:520px; background:rgba(139,92,255,.42); top:-180px; right:-120px; }
+.hero__glow--b{ width:420px; height:420px; background:rgba(185,255,0,.15); bottom:-200px; left:-140px; }
+
+.hero__grid{
+  position:relative; z-index:2;
+  display:grid; grid-template-columns:1.08fr .92fr; gap:56px; align-items:center;
+}
+
+.hero h1{ margin:22px 0 0; }
+.hero h1 em{
+  font-style:normal;
+  color:transparent;
+  -webkit-text-stroke:2px var(--lime);
+  text-stroke:2px var(--lime);
+}
+.hero .lead{ margin-top:24px; }
+
+.hero__actions{ display:flex; flex-wrap:wrap; gap:14px; margin-top:34px; }
+
+.hero__proof{
+  display:flex; align-items:center; gap:14px; margin-top:28px;
+  color:var(--ink-dim); font-size:.86rem;
+}
+.avatars{ display:flex; }
+.avatars i{
+  width:30px; height:30px; border-radius:50%; display:block;
+  border:2px solid var(--bg); margin-left:-9px;
+}
+.avatars i:first-child{ margin-left:0; }
+
+/* --- tarjeta de video del hero --- */
+.hero__media{ position:relative; }
+
+.player{
+  display:block;
+  position:relative;
+  isolation:isolate;   /* mantiene los z-index de las capas dentro de la tarjeta */
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:var(--surface);
+  aspect-ratio:16/10;
+  box-shadow:0 40px 80px -30px rgba(0,0,0,.85);
+}
+.player__art{ position:absolute; inset:0; }
+.player__shade{
+  position:absolute; inset:0; z-index:2;
+  background:linear-gradient(to top, rgba(11,13,15,.92) 0%, rgba(11,13,15,.15) 55%, transparent 100%);
+}
+
+/* Miniatura real de YouTube; si no carga, se ve el arte SVG de abajo. */
+.player__img,.vcard__img{
+  position:absolute; inset:0; z-index:1;
+  width:100%; height:100%; object-fit:cover;
+  opacity:0; transition:opacity .45s ease;
+}
+.player__img.is-on,.vcard__img.is-on{ opacity:1; }
+.player__play{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:74px; height:74px; border-radius:50%; z-index:3;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.35);
+  backdrop-filter:blur(6px);
+  display:grid; place-items:center;
+  cursor:pointer;
+  transition:transform .22s ease, background .22s ease;
+}
+.player__play:hover{ transform:translate(-50%,-50%) scale(1.08); background:rgba(185,255,0,.9); }
+.player__play:hover svg{ fill:#0B0D0F; }
+.player__play svg{ width:24px; height:24px; fill:#fff; margin-left:4px; transition:fill .22s ease; }
+
+.player__meta{ position:absolute; left:20px; right:20px; bottom:18px; z-index:3; padding-right:132px; }
+.player__meta h3{ font-size:1.05rem; line-height:1.25; }
+.player__meta p{ font-size:.8rem; color:var(--ink-dim); margin-top:6px; }
+
+.badge-live{
+  position:absolute; top:16px; left:16px; z-index:4;
+  display:inline-flex; align-items:center; gap:7px;
+  padding:6px 12px; border-radius:100px;
+  background:rgba(11,13,15,.8);
+  border:1px solid rgba(255,255,255,.14);
+  font-size:.68rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
+}
+.badge-live i{
+  width:7px; height:7px; border-radius:50%; background:var(--hot);
+  animation:pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse{ 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:.4; transform:scale(.75);} }
+
+.sticker{
+  position:absolute; right:-14px; bottom:-22px; z-index:5;
+  background:var(--lime); color:#0B0D0F;
+  padding:14px 18px; border-radius:14px;
+  font-weight:800; font-size:.82rem; line-height:1.25;
+  transform:rotate(-4deg);
+  box-shadow:0 18px 40px -18px rgba(185,255,0,.6);
+}
+.sticker b{ display:block; font-size:1.5rem; letter-spacing:-0.03em; }
+
+/* ============================================================
+   MARQUEE
+   ============================================================ */
+.marquee{
+  border-block:1px solid var(--line);
+  background:var(--bg-2);
+  overflow:hidden;
+  padding:16px 0;
+}
+.marquee__track{
+  display:flex; gap:44px; width:max-content;
+  animation:slide 34s linear infinite;
+}
+.marquee:hover .marquee__track{ animation-play-state:paused; }
+@keyframes slide{ to{ transform:translateX(-50%); } }
+.marquee__item{
+  display:flex; align-items:center; gap:44px;
+  font-size:.82rem; font-weight:800; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--ink-dim); white-space:nowrap;
+}
+.marquee__item::after{
+  content:""; width:6px; height:6px; border-radius:50%; background:var(--violet); display:block;
+}
+
+/* ============================================================
+   SECCIONES
+   ============================================================ */
+.section{ padding:clamp(64px, 9vw, 116px) 0; }
+.section--alt{ background:var(--bg-2); border-block:1px solid var(--line); }
+
+.section__head{
+  display:flex; align-items:flex-end; justify-content:space-between; gap:32px;
+  margin-bottom:44px;
+}
+.section__head h2{ margin-top:16px; }
+.section__head .lead{ margin-top:16px; }
+
+/* --- grid de videos --- */
+.videos{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:26px;
+}
+.vcard{ display:block; cursor:pointer; }
+.vcard__thumb{
+  position:relative; border-radius:var(--radius); overflow:hidden;
+  aspect-ratio:16/9; border:1px solid var(--line);
+  transition:transform .3s ease, border-color .3s ease;
+}
+.vcard:hover .vcard__thumb{ transform:translateY(-6px); border-color:var(--lime); }
+.vcard__thumb svg{ position:absolute; inset:0; width:100%; height:100%; }
+.vcard__dur{
+  position:absolute; right:10px; bottom:10px; z-index:2;
+  background:rgba(11,13,15,.88); color:#fff;
+  padding:3px 9px; border-radius:6px;
+  font-size:.73rem; font-weight:700; letter-spacing:.02em;
+}
+.vcard__tag{
+  position:absolute; left:10px; top:10px; z-index:2;
+  background:var(--lime); color:#0B0D0F;
+  padding:4px 10px; border-radius:100px;
+  font-size:.66rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+}
+.vcard__tag--v{ background:var(--violet); color:#fff; }
+.vcard__tag--h{ background:var(--hot); color:#fff; }
+
+.vcard h3{ margin-top:16px; transition:color .2s ease; }
+.vcard:hover h3{ color:var(--lime); }
+.vcard__meta{
+  margin-top:8px; font-size:.83rem; color:var(--ink-dim);
+  display:flex; align-items:center; gap:8px;
+}
+.vcard__meta i{ width:3px; height:3px; border-radius:50%; background:var(--ink-dim); display:block; }
+
+/* --- stats --- */
+.stats{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.stat{ background:var(--bg); padding:38px 28px; }
+.stat b{
+  display:block;
+  font-size:clamp(2.2rem,4.4vw,3.2rem); font-weight:800;
+  letter-spacing:-0.04em; line-height:1;
+  color:var(--lime);
+}
+.stat span{
+  display:block; margin-top:12px;
+  font-size:.78rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-dim);
+}
+
+/* --- formatos / programas --- */
+.formats{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
+.format{
+  position:relative;
+  padding:34px 32px 32px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  transition:transform .28s ease, border-color .28s ease, background .28s ease;
+}
+.format:hover{ transform:translateY(-5px); border-color:var(--ink-dim); background:var(--surface-2); }
+.format__icon{
+  width:46px; height:46px; border-radius:12px;
+  display:grid; place-items:center; margin-bottom:20px;
+  background:rgba(185,255,0,.12); border:1px solid rgba(185,255,0,.28);
+}
+.format__icon svg{ width:22px; height:22px; stroke:var(--lime); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.format:nth-child(2) .format__icon{ background:rgba(139,92,255,.14); border-color:rgba(139,92,255,.34); }
+.format:nth-child(2) .format__icon svg{ stroke:var(--violet); }
+.format:nth-child(3) .format__icon{ background:rgba(255,77,141,.12); border-color:rgba(255,77,141,.3); }
+.format:nth-child(3) .format__icon svg{ stroke:var(--hot); }
+.format p{ margin-top:12px; color:var(--ink-mid); font-size:.98rem; }
+.format__when{
+  margin-top:20px; display:inline-block;
+  font-size:.74rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ink-dim);
+  padding-top:16px; border-top:1px solid var(--line); width:100%;
+}
+
+/* --- sobre / host --- */
+.about{ display:grid; grid-template-columns:.95fr 1.05fr; gap:60px; align-items:center; }
+.about__photo{
+  position:relative; aspect-ratio:4/5; border-radius:var(--radius); overflow:hidden;
+  border:1px solid var(--line);
+}
+.about__photo svg{ position:absolute; inset:0; width:100%; height:100%; }
+.about__quote{
+  margin-top:28px; padding-left:22px; border-left:3px solid var(--lime);
+  font-size:1.18rem; font-style:italic; color:var(--ink); line-height:1.5;
+}
+.about__sign{ margin-top:18px; font-size:.85rem; color:var(--ink-dim); }
+.about__sign b{ color:var(--ink); display:block; font-size:.98rem; letter-spacing:-0.01em; }
+
+.checks{ margin:28px 0 0; padding:0; list-style:none; display:grid; gap:14px; }
+.checks li{ display:flex; gap:13px; align-items:flex-start; color:var(--ink-mid); font-size:.98rem; }
+.checks svg{ width:20px; height:20px; flex-shrink:0; margin-top:2px; stroke:var(--lime); fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+
+/* --- newsletter / CTA --- */
+.cta{
+  position:relative; overflow:hidden;
+  border-radius:26px;
+  border:1px solid var(--line);
+  background:
+    radial-gradient(900px 400px at 15% 0%, rgba(139,92,255,.28), transparent 65%),
+    radial-gradient(700px 400px at 90% 100%, rgba(185,255,0,.14), transparent 60%),
+    var(--surface);
+  padding:clamp(40px, 6vw, 72px);
+  text-align:center;
+}
+.cta h2{ max-width:18ch; margin-inline:auto; }
+.cta .lead{ margin:20px auto 0; text-align:center; }
+
+.form{
+  display:flex; gap:10px; margin:34px auto 0; max-width:480px;
+  flex-wrap:wrap; justify-content:center;
+}
+.form input{
+  flex:1 1 240px; min-width:0;
+  padding:15px 20px;
+  background:rgba(11,13,15,.6);
+  border:1px solid var(--line);
+  border-radius:100px;
+  color:var(--ink); font-size:.95rem; font-family:inherit;
+  transition:border-color .2s ease;
+}
+.form input::placeholder{ color:var(--ink-dim); }
+.form input:focus{ outline:none; border-color:var(--lime); }
+.form__note{ margin-top:16px; font-size:.8rem; color:var(--ink-dim); }
+.form__ok{
+  margin-top:18px; font-size:.92rem; font-weight:700; color:var(--lime);
+  display:none;
+}
+.form__ok.is-on{ display:block; }
+
+/* --- socials --- */
+.socials{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:44px; }
+.social{
+  display:flex; align-items:center; gap:14px;
+  padding:20px 22px;
+  border:1px solid var(--line); border-radius:var(--radius);
+  background:var(--surface);
+  transition:transform .25s ease, border-color .25s ease;
+}
+.social:hover{ transform:translateY(-4px); border-color:var(--ink-dim); }
+.social svg{ width:22px; height:22px; fill:var(--ink); flex-shrink:0; }
+.social b{ display:block; font-size:.95rem; letter-spacing:-0.01em; }
+.social span{ display:block; font-size:.8rem; color:var(--ink-dim); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer{
+  border-top:1px solid var(--line);
+  background:var(--bg-2);
+  padding:56px 0 32px;
+}
+.footer__grid{
+  display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:40px;
+  padding-bottom:40px; border-bottom:1px solid var(--line);
+}
+.footer p{ color:var(--ink-dim); font-size:.9rem; margin-top:16px; max-width:34ch; }
+.footer h4{
+  font-size:.76rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-dim);
+  margin-bottom:16px;
+}
+.footer ul{ list-style:none; padding:0; margin:0; display:grid; gap:11px; }
+.footer ul a{ font-size:.92rem; color:var(--ink-mid); transition:color .18s ease; }
+.footer ul a:hover{ color:var(--lime); }
+.footer__bottom{
+  display:flex; justify-content:space-between; align-items:center; gap:20px;
+  padding-top:24px; font-size:.82rem; color:var(--ink-dim); flex-wrap:wrap;
+}
+
+/* ============================================================
+   ANIMACIÓN DE ENTRADA
+   ============================================================ */
+.reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
+.reveal.is-in{ opacity:1; transform:none; }
+
+@media (prefers-reduced-motion:reduce){
+  *{ animation:none !important; transition:none !important; }
+  .reveal{ opacity:1; transform:none; }
+  html{ scroll-behavior:auto; }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1000px){
+  .hero__grid{ grid-template-columns:1fr; gap:48px; }
+  .videos{ grid-template-columns:repeat(2,1fr); }
+  .stats{ grid-template-columns:repeat(2,1fr); }
+  .about{ grid-template-columns:1fr; gap:40px; }
+  .about__photo{ max-width:380px; }
+  .socials{ grid-template-columns:repeat(2,1fr); }
+  .footer__grid{ grid-template-columns:1fr 1fr; gap:32px; }
+}
+
+@media (max-width:760px){
+  body{ font-size:16px; }
+  .wrap{ padding-inline:20px; }
+  .nav__links{ display:none; }
+  .burger{ display:grid; }
+  .nav__cta{ display:none; }
+  .videos{ grid-template-columns:1fr; }
+  .formats{ grid-template-columns:1fr; }
+  .socials{ grid-template-columns:1fr; }
+  .section__head{ flex-direction:column; align-items:flex-start; gap:20px; }
+  .section__head .btn{ align-self:flex-start; }
+  .sticker{ right:8px; bottom:-18px; }
+  .player__meta{ padding-right:84px; }
+  .footer__grid{ grid-template-columns:1fr; }
+  .hero__actions .btn{ flex:1 1 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="nav">
+  <div class="wrap nav__inner">
+    <a class="logo" href="#top" aria-label="SheFooty+ — inicio">
+      <span class="logo__mark" aria-hidden="true">
+        <svg viewBox="166 266 691 514" xmlns="http://www.w3.org/2000/svg">
+          <g fill="#F4F6F7">
+            <path d="M278 286C220 286 186 325 186 379C186 434 222 470 278 470H430L378 560L324 486H266L379 652L516 414H284C252 414 234 398 234 377C234 354 251 340 284 340H757L786 286Z"/>
+            <path d="M571 414H704L675 468H619L461 760L417 708Z"/>
+          </g>
+          <g fill="#B9FF00">
+            <rect x="716" y="514" width="52" height="190" rx="14"/>
+            <rect x="647" y="583" width="190" height="52" rx="14"/>
+          </g>
+        </svg>
+      </span>
+      <span class="logo__text">SheFooty<span>+</span></span>
+    </a>
+
+    <nav class="nav__links" aria-label="Principal">
+      <a href="#videos">Videos</a>
+      <a href="#formatos">Formatos</a>
+      <a href="#sobre">Sobre el canal</a>
+      <a href="#comunidad">Comunidad</a>
+    </nav>
+
+    <a class="btn btn--yt btn--sm nav__cta" href="#" data-link="youtube" target="_blank" rel="noopener">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+      Suscribirse
+    </a>
+
+    <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero__glow hero__glow--a" aria-hidden="true"></div>
+  <div class="hero__glow hero__glow--b" aria-hidden="true"></div>
+
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <span class="eyebrow">Nuevo video cada martes y viernes</span>
+
+      <h1>El fútbol<br>femenino,<br><em>en serio</em></h1>
+
+      <p class="lead">
+        Análisis táctico, historias que nadie cuenta y los mejores highlights de las
+        ligas femeninas del mundo. Sin condescendencia y sin relleno: fútbol del bueno,
+        contado como se merece.
+      </p>
+
+      <div class="hero__actions">
+        <a class="btn btn--yt" href="#" data-link="youtube" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+          Suscribirme al canal
+        </a>
+        <a class="btn btn--ghost" href="#videos">Ver los últimos videos</a>
+      </div>
+
+      <div class="hero__proof">
+        <span class="avatars" aria-hidden="true">
+          <i style="background:linear-gradient(135deg,#8B5CFF,#FF4D8D)"></i>
+          <i style="background:linear-gradient(135deg,#B9FF00,#3EDA8C)"></i>
+          <i style="background:linear-gradient(135deg,#FF4D8D,#FFB03E)"></i>
+          <i style="background:linear-gradient(135deg,#3EA8FF,#8B5CFF)"></i>
+        </span>
+        <span><strong style="color:var(--ink)" id="proofSubs">—</strong> personas ya están suscritas</span>
+      </div>
+    </div>
+
+    <div class="hero__media">
+      <a class="player" id="heroPlayer" href="#" target="_blank" rel="noopener">
+        <span class="badge-live"><i></i> Último video</span>
+
+        <div class="player__art" aria-hidden="true">
+          <svg viewBox="0 0 640 400" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%">
+            <defs>
+              <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#1B3A2A"/>
+                <stop offset="55%" stop-color="#123044"/>
+                <stop offset="100%" stop-color="#2A1B45"/>
+              </linearGradient>
+              <pattern id="stripes" width="64" height="400" patternUnits="userSpaceOnUse">
+                <rect width="32" height="400" fill="rgba(255,255,255,.028)"/>
+              </pattern>
+            </defs>
+            <rect width="640" height="400" fill="url(#hg)"/>
+            <rect width="640" height="400" fill="url(#stripes)"/>
+            <!-- líneas de cancha -->
+            <g stroke="rgba(185,255,0,.3)" stroke-width="2" fill="none">
+              <circle cx="320" cy="200" r="82"/>
+              <path d="M320 40v320"/>
+              <rect x="40" y="112" width="94" height="176" rx="2"/>
+              <rect x="506" y="112" width="94" height="176" rx="2"/>
+            </g>
+            <circle cx="320" cy="200" r="6" fill="rgba(185,255,0,.55)"/>
+            <!-- trazado de jugada -->
+            <g fill="none" stroke="#B9FF00" stroke-width="3" stroke-linecap="round" stroke-dasharray="9 9">
+              <path d="M150 300 C 240 250, 250 160, 350 140"/>
+              <path d="M350 140 C 430 128, 470 180, 528 196"/>
+            </g>
+            <g fill="#FF4D8D">
+              <circle cx="150" cy="300" r="8"/><circle cx="350" cy="140" r="8"/>
+            </g>
+            <circle cx="528" cy="196" r="10" fill="#B9FF00"/>
+          </svg>
+        </div>
+
+        <img class="player__img" id="heroImg" alt="" aria-hidden="true">
+        <div class="player__shade"></div>
+        <span class="player__play" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+
+        <div class="player__meta">
+          <h3 id="heroTitulo">—</h3>
+          <p id="heroMeta">—</p>
+        </div>
+      </a>
+
+      <div class="sticker">
+        <b>2×</b>
+        videos por semana
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span class="marquee__item">Liga F</span>
+    <span class="marquee__item">WSL</span>
+    <span class="marquee__item">NWSL</span>
+    <span class="marquee__item">Champions femenina</span>
+    <span class="marquee__item">Copa Libertadores</span>
+    <span class="marquee__item">Serie A</span>
+    <span class="marquee__item">Frauen-Bundesliga</span>
+    <span class="marquee__item">Mundial</span>
+    <span class="marquee__item">Liga F</span>
+    <span class="marquee__item">WSL</span>
+    <span class="marquee__item">NWSL</span>
+    <span class="marquee__item">Champions femenina</span>
+    <span class="marquee__item">Copa Libertadores</span>
+    <span class="marquee__item">Serie A</span>
+    <span class="marquee__item">Frauen-Bundesliga</span>
+    <span class="marquee__item">Mundial</span>
+  </div>
+</div>
+
+<!-- ================= VIDEOS ================= -->
+<section class="section" id="videos">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <div>
+        <span class="eyebrow">Lo último</span>
+        <h2>Recién<br>subido</h2>
+      </div>
+      <a class="btn btn--ghost btn--sm" href="#" data-link="youtube" target="_blank" rel="noopener">Ver todo en YouTube →</a>
+    </div>
+
+    <div class="videos" id="videosGrid"></div>
+  </div>
+</section>
+
+<!-- ================= STATS ================= -->
+<section class="section section--alt">
+  <div class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><b data-stat="0">—</b><span>Suscriptoras y suscriptores</span></div>
+      <div class="stat"><b data-stat="1">—</b><span>Vistas al mes</span></div>
+      <div class="stat"><b data-stat="2">—</b><span>Videos publicados</span></div>
+      <div class="stat"><b data-stat="3">—</b><span>Ligas cubiertas</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FORMATOS ================= -->
+<section class="section" id="formatos">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <div>
+        <span class="eyebrow">Qué vas a encontrar</span>
+        <h2>Nuestros<br>formatos</h2>
+      </div>
+      <p class="lead">Cuatro series fijas, un calendario que se cumple y cero contenido de relleno.</p>
+    </div>
+
+    <div class="formats">
+
+      <article class="format reveal">
+        <div class="format__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
+        </div>
+        <h3>Pizarra</h3>
+        <p>Análisis táctico con datos: cómo se ganan y se pierden los partidos, dibujado jugada por jugada.</p>
+        <span class="format__when">Martes · 15–20 min</span>
+      </article>
+
+      <article class="format reveal">
+        <div class="format__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a4 4 0 0 1 4 4v4a4 4 0 0 1-8 0V7a4 4 0 0 1 4-4z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+        </div>
+        <h3>Cara a cara</h3>
+        <p>Entrevistas largas con jugadoras, entrenadoras y periodistas. Sin guion de prensa.</p>
+        <span class="format__when">Un viernes al mes · 40–60 min</span>
+      </article>
+
+      <article class="format reveal">
+        <div class="format__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="M9 10l5 3-5 3v-6z"/></svg>
+        </div>
+        <h3>Jornada express</h3>
+        <p>Todo lo que pasó en la fecha: goles, polémicas y tabla, en menos de diez minutos.</p>
+        <span class="format__when">Viernes · 8–10 min</span>
+      </article>
+
+      <article class="format reveal">
+        <div class="format__icon">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6.4.8-4.7 4.3 1.3 6.3L12 17l-5.6 3 1.3-6.3L3 9.4l6.4-.8L12 3z"/></svg>
+        </div>
+        <h3>Archivo</h3>
+        <p>Documentales cortos sobre las historias que construyeron este deporte y casi nadie contó.</p>
+        <span class="format__when">Cada temporada · 20–30 min</span>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= SOBRE ================= -->
+<section class="section section--alt" id="sobre">
+  <div class="wrap about">
+
+    <div class="about__photo reveal">
+      <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <linearGradient id="pg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#8B5CFF"/><stop offset="100%" stop-color="#1B3A2A"/>
+          </linearGradient>
+        </defs>
+        <rect width="400" height="500" fill="url(#pg)"/>
+        <circle cx="200" cy="180" r="86" fill="rgba(11,13,15,.35)"/>
+        <path d="M60 500c0-84 63-152 140-152s140 68 140 152z" fill="rgba(11,13,15,.35)"/>
+        <g stroke="rgba(185,255,0,.5)" stroke-width="2.5" fill="none">
+          <circle cx="200" cy="180" r="110"/><circle cx="200" cy="180" r="140"/>
+        </g>
+        <rect x="0" y="0" width="400" height="500" fill="url(#stripes)" opacity=".6"/>
+      </svg>
+    </div>
+
+    <div class="reveal">
+      <span class="eyebrow">Sobre el canal</span>
+      <h2 style="margin-top:16px">No es una<br>categoría aparte</h2>
+
+      <p class="lead" style="margin-top:22px">
+        Empezamos porque estábamos cansadas de que el fútbol femenino se cubriera como
+        una nota de color. Aquí se analiza con el mismo rigor, el mismo lenguaje y la
+        misma exigencia que cualquier otro fútbol. Porque es el mismo fútbol.
+      </p>
+
+      <ul class="checks">
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Datos verificados de fuentes oficiales y proveedores de estadística</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Cobertura de ligas europeas, americanas y sudamericanas</li>
+        <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg> Subtítulos en español, inglés y portugués en todos los videos</li>
+      </ul>
+
+      <blockquote class="about__quote">
+        “Si tienes que explicar por qué el fútbol femenino importa, ya perdiste el partido.
+        Nosotras preferimos explicar cómo se gana.”
+      </blockquote>
+      <p class="about__sign"><b>Equipo SheFooty+</b> Madrid · Buenos Aires · Ciudad de México</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= COMUNIDAD / CTA ================= -->
+<section class="section" id="comunidad">
+  <div class="wrap">
+
+    <div class="cta reveal">
+      <span class="eyebrow" style="justify-content:center">Newsletter semanal</span>
+      <h2 style="margin-top:18px">Recibe la previa antes que nadie</h2>
+      <p class="lead">
+        Cada jueves: el partido que hay que ver, el dato que nadie está mirando y el
+        próximo video del canal, en tu correo. Gratis.
+      </p>
+
+      <form class="form" id="subForm" action="https://formspree.io/f/moealnnz" method="POST" novalidate>
+        <input type="email" name="email" id="email" placeholder="tu@correo.com" aria-label="Tu correo electrónico" required>
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+        <button class="btn btn--lime" type="submit">Quiero la previa</button>
+      </form>
+      <p class="form__note">Un correo por semana. Cancelas cuando quieras.</p>
+      <p class="form__ok" id="formOk">¡Listo! Revisa tu correo para confirmar la suscripción. ⚽</p>
+      <p class="form__ok" id="formErr" style="color:var(--hot)">Algo falló al enviar. Intenta de nuevo en un momento.</p>
+    </div>
+
+    <div class="socials">
+      <a class="social reveal" href="#" data-link="youtube" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+        <span><b>YouTube</b><span data-sub="youtube">—</span></span>
+      </a>
+      <a class="social reveal" href="#" data-link="instagram" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.9-11.1a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></svg>
+        <span><b>Instagram</b><span data-sub="instagram">—</span></span>
+      </a>
+      <a class="social reveal" href="#" data-link="tiktok" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 5.8a4.9 4.9 0 0 1-1.2-3.2h-3.3v13.1a2.9 2.9 0 1 1-2.1-2.8V9.5a6.2 6.2 0 1 0 5.4 6.1V9.1a8.2 8.2 0 0 0 4.7 1.5V7.3a4.9 4.9 0 0 1-3.5-1.5z"/></svg>
+        <span><b>TikTok</b><span data-sub="tiktok">—</span></span>
+      </a>
+      <a class="social reveal" href="#" data-link="x" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 3H22l-7 8 8.2 10h-6.4l-5-6.1L5.9 21H2.8l7.5-8.6L2.4 3h6.6l4.5 5.6L18.9 3zm-1.1 16.1h1.7L7.3 4.8H5.5l12.3 14.3z"/></svg>
+        <span><b>X</b><span data-sub="x">—</span></span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <a class="logo" href="#top">
+          <span class="logo__mark" aria-hidden="true">
+            <svg viewBox="166 266 691 514" xmlns="http://www.w3.org/2000/svg">
+              <g fill="#F4F6F7">
+                <path d="M278 286C220 286 186 325 186 379C186 434 222 470 278 470H430L378 560L324 486H266L379 652L516 414H284C252 414 234 398 234 377C234 354 251 340 284 340H757L786 286Z"/>
+                <path d="M571 414H704L675 468H619L461 760L417 708Z"/>
+              </g>
+              <g fill="#B9FF00">
+                <rect x="716" y="514" width="52" height="190" rx="14"/>
+                <rect x="647" y="583" width="190" height="52" rx="14"/>
+              </g>
+            </svg>
+          </span>
+          <span class="logo__text">SheFooty<span>+</span></span>
+        </a>
+        <p>El canal que cubre el fútbol femenino con el rigor que siempre mereció. Nuevos videos martes y viernes.</p>
+      </div>
+
+      <div>
+        <h4>Canal</h4>
+        <ul>
+          <li><a href="#videos">Últimos videos</a></li>
+          <li><a href="#formatos">Formatos</a></li>
+          <li><a href="#sobre">Sobre nosotras</a></li>
+          <li><a href="#comunidad">Newsletter</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Redes</h4>
+        <ul>
+          <li><a href="#" data-link="youtube" target="_blank" rel="noopener">YouTube</a></li>
+          <li><a href="#" data-link="instagram" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="#" data-link="tiktok" target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href="#" data-link="x" target="_blank" rel="noopener">X</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="mailto:hola@shefooty.tv">hola@shefooty.tv</a></li>
+          <li><a href="mailto:marcas@shefooty.tv">Marcas y patrocinios</a></li>
+          <li><a href="mailto:prensa@shefooty.tv">Prensa</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© <span id="year">2026</span> SheFooty+. Todos los derechos reservados.</span>
+      <span><a href="#">Privacidad</a> · <a href="#">Cookies</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   ⚽  AQUÍ SE ALIMENTA LA PÁGINA
+   Todo lo que cambia con el tiempo vive en estos dos bloques.
+   Para el resto de la página no hace falta tocar nada más.
+   ══════════════════════════════════════════════════════════════ */
+
+var CANAL = {
+  /* Pega aquí las URLs reales. Mientras estén vacías, el enlace
+     no lleva a ninguna parte, así no publicas links rotos. */
+  youtube:   "",
+  instagram: "",
+  tiktok:    "",
+  x:         "",
+
+  /* Textos que aparecen debajo de cada red */
+  subtitulos: {
+    youtube:   "Suscríbete al canal",
+    instagram: "@shefootyplus",
+    tiktok:    "Clips y golazos",
+    x:         "Minuto a minuto"
+  },
+
+  /* Prueba social del hero. Déjalo vacío ("") para ocultar la línea. */
+  suscriptores: "",
+
+  /* Las cuatro cifras de la franja de métricas, en orden:
+     suscriptores · vistas al mes · videos publicados · ligas cubiertas
+     Deja "" en las que todavía no tengas y se ocultan solas. */
+  stats: ["", "", "", ""]
+};
+
+/* ───────────────────────────────────────────────────────────────
+   TUS VIDEOS
+   El primero de la lista es el que sale grande en el hero.
+   Para añadir uno nuevo, copia un bloque y ponlo arriba del todo.
+
+   url       → el enlace de YouTube; de ahí se saca la miniatura sola
+   tipo      → "analisis" | "historia" | "highlights"
+   miniatura → opcional: solo si quieres una imagen propia en vez de
+               la de YouTube
+   ─────────────────────────────────────────────────────────────── */
+
+var VIDEOS = [
+  {
+    titulo:    "Por qué el 3-4-3 está dominando la Liga F esta temporada",
+    url:       "",
+    duracion:  "18:42",
+    vistas:    "94 mil",
+    cuando:    "hace 2 días",
+    tipo:      "analisis"
+  },
+  {
+    titulo:    "La generación que cambió el fútbol femenino para siempre",
+    url:       "",
+    duracion:  "24:07",
+    vistas:    "217 mil",
+    cuando:    "hace 1 semana",
+    tipo:      "historia"
+  },
+  {
+    titulo:    "Los 10 golazos de la Champions femenina que tienes que ver",
+    url:       "",
+    duracion:  "09:15",
+    vistas:    "431 mil",
+    cuando:    "hace 2 semanas",
+    tipo:      "highlights"
+  }
+];
+
+/* ══════════════════════════════════════════════════════════════
+   De aquí para abajo es el motor. No hace falta editarlo.
+   ══════════════════════════════════════════════════════════════ */
+
+(function(){
+  "use strict";
+
+  /* ---------- utilidades ---------- */
+
+  function esc(t){
+    return String(t == null ? '' : t)
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* Saca el ID de cualquier formato de URL de YouTube:
+     youtu.be/ID · /watch?v=ID · /embed/ID · /shorts/ID */
+  function idDeYoutube(url){
+    var m = String(url || '').match(
+      /(?:youtu\.be\/|v=|\/embed\/|\/shorts\/)([A-Za-z0-9_-]{11})/
+    );
+    return m ? m[1] : null;
+  }
+
+  var TIPOS = {
+    analisis:   { etiqueta:'Análisis',   clase:'' },
+    historia:   { etiqueta:'Historia',   clase:' vcard__tag--v' },
+    highlights: { etiqueta:'Highlights', clase:' vcard__tag--h' }
+  };
+
+  /* Arte de respaldo: se ve mientras carga la miniatura real,
+     y se queda si el video todavía no tiene URL. */
+  function arte(tipo, uid){
+    var g = 'grad-' + uid;
+    var cabeza = '<svg viewBox="0 0 480 270" preserveAspectRatio="xMidYMid slice" aria-hidden="true">';
+
+    if (tipo === 'historia'){
+      return cabeza +
+        '<defs><linearGradient id="'+g+'" x1="0" y1="0" x2="1" y2="1">' +
+        '<stop offset="0%" stop-color="#2E1B4D"/><stop offset="100%" stop-color="#451B34"/>' +
+        '</linearGradient></defs>' +
+        '<rect width="480" height="270" fill="url(#'+g+')"/>' +
+        '<g opacity=".5" stroke="rgba(255,255,255,.2)" stroke-width="1.5">' +
+        '<path d="M0 200h480M0 160h480M0 120h480"/></g>' +
+        '<g fill="none" stroke="#8B5CFF" stroke-width="4" stroke-linecap="round">' +
+        '<path d="M60 210V130"/><path d="M120 210V100"/><path d="M180 210V150"/>' +
+        '<path d="M240 210V70"/><path d="M300 210V120"/><path d="M360 210V60"/><path d="M420 210V95"/>' +
+        '</g><circle cx="360" cy="60" r="11" fill="#B9FF00"/></svg>';
+    }
+
+    if (tipo === 'highlights'){
+      return cabeza +
+        '<defs><linearGradient id="'+g+'" x1="0" y1="0" x2="1" y2="1">' +
+        '<stop offset="0%" stop-color="#4A1B2E"/><stop offset="100%" stop-color="#26183F"/>' +
+        '</linearGradient></defs>' +
+        '<rect width="480" height="270" fill="url(#'+g+')"/>' +
+        '<g stroke="rgba(255,255,255,.22)" stroke-width="2.5" fill="none">' +
+        '<rect x="150" y="70" width="180" height="110" rx="4"/><path d="M150 180h180"/></g>' +
+        '<path d="M70 220C150 210 200 130 262 112" fill="none" stroke="#FF4D8D" stroke-width="4" stroke-linecap="round"/>' +
+        '<circle cx="266" cy="110" r="13" fill="#fff"/></svg>';
+    }
+
+    return cabeza +
+      '<defs><linearGradient id="'+g+'" x1="0" y1="0" x2="1" y2="1">' +
+      '<stop offset="0%" stop-color="#14432E"/><stop offset="100%" stop-color="#0E2440"/>' +
+      '</linearGradient></defs>' +
+      '<rect width="480" height="270" fill="url(#'+g+')"/>' +
+      '<g stroke="rgba(185,255,0,.28)" stroke-width="2" fill="none">' +
+      '<circle cx="240" cy="135" r="58"/><path d="M240 20v230"/></g>' +
+      '<path d="M120 90L180 170L300 110L360 180" fill="none" stroke="rgba(255,255,255,.45)" stroke-width="2.5" stroke-dasharray="7 7"/>' +
+      '<g fill="#B9FF00"><circle cx="120" cy="90" r="9"/><circle cx="180" cy="170" r="9"/><circle cx="300" cy="110" r="9"/></g>' +
+      '<g fill="#FF4D8D"><circle cx="360" cy="180" r="9"/><circle cx="90" cy="190" r="9"/></g></svg>';
+  }
+
+  /* Carga la miniatura de YouTube en máxima calidad y, si ese
+     tamaño no existe para el video, baja al que siempre existe.
+     Si nada carga, se queda el arte SVG. */
+  function ponerMiniatura(img, video){
+    var id = idDeYoutube(video.url);
+    var intentos = video.miniatura ? [video.miniatura]
+                 : id ? ['https://i.ytimg.com/vi/'+id+'/maxresdefault.jpg',
+                         'https://i.ytimg.com/vi/'+id+'/mqdefault.jpg']
+                 : [];
+    if (!intentos.length) return;
+
+    var i = 0;
+    img.addEventListener('load', function(){
+      /* maxresdefault devuelve un 120x90 gris cuando no existe */
+      if (img.naturalWidth > 200) img.classList.add('is-on');
+      else siguiente();
+    });
+    img.addEventListener('error', siguiente);
+
+    function siguiente(){
+      i++;
+      if (i < intentos.length) img.src = intentos[i];
+    }
+    img.src = intentos[0];
+  }
+
+  /* ---------- render de la grilla ---------- */
+
+  var grid = document.getElementById('videosGrid');
+
+  VIDEOS.forEach(function(video, n){
+    var tipo = TIPOS[video.tipo] || TIPOS.analisis;
+
+    var tarjeta = document.createElement('a');
+    tarjeta.className = 'vcard reveal';
+    tarjeta.innerHTML =
+      '<div class="vcard__thumb">' +
+        '<span class="vcard__tag'+tipo.clase+'">'+tipo.etiqueta+'</span>' +
+        '<span class="vcard__dur">'+esc(video.duracion)+'</span>' +
+        arte(video.tipo, 'card'+n) +
+        '<img class="vcard__img" alt="" aria-hidden="true">' +
+      '</div>' +
+      '<h3>'+esc(video.titulo)+'</h3>' +
+      '<p class="vcard__meta">'+esc(video.vistas)+' vistas <i></i> '+esc(video.cuando)+'</p>';
+
+    if (video.url){
+      tarjeta.href = video.url;
+      tarjeta.target = '_blank';
+      tarjeta.rel = 'noopener';
+    }
+
+    ponerMiniatura(tarjeta.querySelector('.vcard__img'), video);
+    grid.appendChild(tarjeta);
+  });
+
+  /* ---------- video destacado del hero ---------- */
+
+  var destacado = VIDEOS[0];
+  if (destacado){
+    var player = document.getElementById('heroPlayer');
+    document.getElementById('heroTitulo').textContent = destacado.titulo;
+    document.getElementById('heroMeta').textContent =
+      [destacado.duracion, destacado.cuando, destacado.vistas + ' vistas']
+        .filter(Boolean).join(' · ');
+
+    if (destacado.url) player.href = destacado.url;
+    else player.removeAttribute('href');
+
+    ponerMiniatura(document.getElementById('heroImg'), destacado);
+  }
+
+  /* ---------- enlaces y cifras del canal ---------- */
+
+  document.querySelectorAll('[data-link]').forEach(function(a){
+    var url = CANAL[a.getAttribute('data-link')];
+    if (url) a.href = url;
+    else a.removeAttribute('href');
+  });
+
+  document.querySelectorAll('[data-sub]').forEach(function(el){
+    el.textContent = CANAL.subtitulos[el.getAttribute('data-sub')] || '';
+  });
+
+  /* Una cifra vacía oculta su casilla en vez de mostrar un hueco;
+     si no queda ninguna, se va la franja entera. */
+  var franja = document.querySelector('.stats');
+  document.querySelectorAll('[data-stat]').forEach(function(b){
+    var valor = CANAL.stats[Number(b.getAttribute('data-stat'))];
+    if (valor) b.textContent = valor;
+    else b.closest('.stat').remove();
+  });
+  if (!franja.querySelector('.stat')) franja.closest('section').remove();
+
+  var proof = document.getElementById('proofSubs');
+  if (CANAL.suscriptores) proof.textContent = CANAL.suscriptores;
+  else proof.closest('.hero__proof').remove();
+
+  /* --- borde del nav al hacer scroll --- */
+  var nav = document.getElementById('nav');
+  function onScroll(){ nav.classList.toggle('is-stuck', window.scrollY > 8); }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive:true });
+
+  /* --- animación de entrada --- */
+  var items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e, i){
+        if (e.isIntersecting){
+          e.target.style.transitionDelay = (i * 70) + 'ms';
+          e.target.classList.add('is-in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+    items.forEach(function(el){ io.observe(el); });
+  } else {
+    items.forEach(function(el){ el.classList.add('is-in'); });
+  }
+
+  /* --- menú móvil: baja al índice de secciones --- */
+  var burger = document.getElementById('burger');
+  burger.addEventListener('click', function(){
+    document.getElementById('videos').scrollIntoView({ behavior:'smooth' });
+  });
+
+  /* --- newsletter: envía a Formspree sin recargar la página --- */
+  var form = document.getElementById('subForm');
+  var ok   = document.getElementById('formOk');
+  var err  = document.getElementById('formErr');
+  var btn  = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var email = document.getElementById('email');
+    err.classList.remove('is-on');
+
+    if (!email.value || email.value.indexOf('@') === -1){
+      email.focus();
+      email.style.borderColor = 'var(--hot)';
+      return;
+    }
+    email.style.borderColor = '';
+
+    btn.disabled = true;
+    var textoOriginal = btn.textContent;
+    btn.textContent = 'Enviando…';
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(res){
+      if (res.ok){
+        ok.classList.add('is-on');
+        form.reset();
+      } else {
+        err.classList.add('is-on');
+      }
+    }).catch(function(){
+      err.classList.add('is-on');
+    }).finally(function(){
+      btn.disabled = false;
+      btn.textContent = textoOriginal;
+    });
+  });
+
+  /* --- año del footer --- */
+  document.getElementById('year').textContent = new Date().getFullYear();
+})();
+</script>
+
+</body>
+</html>

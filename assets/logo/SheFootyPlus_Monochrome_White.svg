@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+<title>SheFooty+ Master Logo</title>
+<desc>Geometric ST monogram with electric lime plus sign on a carbon black rounded square.</desc>
+<rect x="72" y="72" width="880" height="880" rx="180" fill="none"/>
+<g fill="#FFFFFF">
+  <path d="M278 286
+           C220 286 186 325 186 379
+           C186 434 222 470 278 470
+           H430
+           L378 560
+           L324 486
+           H266
+           L379 652
+           L516 414
+           H284
+           C252 414 234 398 234 377
+           C234 354 251 340 284 340
+           H757
+           L786 286
+           Z"/>
+  <path d="M571 414
+           H704
+           L675 468
+           H619
+           L461 760
+           L417 708
+           Z"/>
+</g>
+<g fill="#FFFFFF">
+  <rect x="716" y="514" width="52" height="190" rx="14"/>
+  <rect x="647" y="583" width="190" height="52" rx="14"/>
+</g>
+</svg>
