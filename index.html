@@ -291,6 +291,26 @@ p{ margin:0; }
 
 .featured__cta{ margin-top:26px; text-align:center; }
 
+/* ---------- SOFASCORE ---------- */
+.sofa-widget{
+  width:100%; max-width:730px; margin-inline:auto;
+  overflow:hidden; border:1px solid var(--line); border-radius:var(--radius);
+  background:#fff; box-shadow:0 40px 80px -30px rgba(0,0,0,.85);
+}
+.sofa-widget iframe{
+  display:block; width:100%; height:568px; border:0;
+}
+.sofa-widget__error{
+  display:none; min-height:180px; padding:32px;
+  place-items:center; text-align:center; color:#4a4f54;
+}
+.sofa-widget__error.is-on{ display:grid; }
+.sofa-widget__credit{
+  max-width:730px; margin:10px auto 0;
+  font-size:.72rem; color:var(--ink-dim); text-align:right;
+}
+.sofa-widget__credit a:hover{ color:var(--lime); }
+
 /* ---------- LATEST: grid de videos ---------- */
 .videos{
   display:grid; grid-template-columns:repeat(3,1fr); gap:26px;
@@ -505,6 +525,29 @@ p{ margin:0; }
   </div>
 </section>
 
+<!-- ================= SOFASCORE ================= -->
+<section class="section section--alt" id="sofascore">
+  <div class="wrap">
+    <div class="section__head reveal">
+      <span class="eyebrow">SofaScore</span>
+      <h2 id="sofaTitle">Player Spotlight</h2>
+      <p class="lead" id="sofaDescription">Live stats, form and performance data.</p>
+    </div>
+
+    <div class="sofa-widget reveal">
+      <iframe
+        id="sofaWidget"
+        title="SofaScore live statistics"
+        loading="lazy"
+        scrolling="no"
+        referrerpolicy="strict-origin-when-cross-origin">
+      </iframe>
+      <p class="sofa-widget__error" id="sofaError">SofaScore data is temporarily unavailable.</p>
+    </div>
+    <p class="sofa-widget__credit reveal">Data provided by <a href="https://www.sofascore.com/" target="_blank" rel="noopener">SofaScore</a></p>
+  </div>
+</section>
+
 <!-- ================= FEATURED ================= -->
 <section class="section" id="featured">
   <div class="wrap">
@@ -716,6 +759,30 @@ var VIDEOS = [
   // { titulo: "", url: "", descripcion: "", tipo: "analisis" },
 ];
 
+/* ───────────────────────────────────────────────────────────────
+   SOFASCORE
+   Cambio manual: sustituye solo "id" por el ID que aparece en la
+   URL del iframe copiado desde SofaScore. "tipo" debe coincidir con
+   la ruta del iframe (por ejemplo, "player").
+
+   Cambio automático opcional: publica un JSON con los mismos campos
+   y pega su URL en "configUrl". La página lo consulta al cargar y usa
+   esta configuración local como respaldo si la consulta falla.
+   Ejemplo JSON:
+   {"tipo":"player","id":"823108","titulo":"Player Spotlight",
+    "descripcion":"Live stats, form and performance data."}
+   ─────────────────────────────────────────────────────────────── */
+
+var SOFASCORE = {
+  tipo: "player",
+  id: "823108",
+  titulo: "Player Spotlight",
+  descripcion: "Live stats, form and performance data.",
+  idioma: "es-ES",
+  tema: "light",
+  configUrl: ""
+};
+
 /* ══════════════════════════════════════════════════════════════
    De aquí para abajo es el motor. No hace falta editarlo.
    ══════════════════════════════════════════════════════════════ */
@@ -738,6 +805,46 @@ var VIDEOS = [
       /(?:youtu\.be\/|v=|\/embed\/|\/shorts\/)([A-Za-z0-9_-]{11})/
     );
     return m ? m[1] : null;
+  }
+
+  /* ---------- SOFASCORE ---------- */
+
+  function configuracionSofaValida(config){
+    return config && /^[a-z-]+$/i.test(String(config.tipo || '')) &&
+      /^\d+$/.test(String(config.id || ''));
+  }
+
+  function cargarSofa(config){
+    var section = document.getElementById('sofascore');
+    if (!configuracionSofaValida(config)){
+      section.remove();
+      return;
+    }
+
+    var idioma = /^[a-z]{2}(?:-[A-Z]{2})?$/.test(String(config.idioma || ''))
+      ? config.idioma : 'es-ES';
+    var tema = config.tema === 'dark' ? 'dark' : 'light';
+    var iframe = document.getElementById('sofaWidget');
+    var error = document.getElementById('sofaError');
+
+    document.getElementById('sofaTitle').textContent = config.titulo || 'SofaScore';
+    document.getElementById('sofaDescription').textContent = config.descripcion || '';
+    iframe.id = 'sofa-' + config.tipo + '-embed-' + config.id;
+    iframe.src = 'https://widgets.sofascore.com/' + idioma + '/embed/' +
+      config.tipo + '/' + config.id + '?widgetTheme=' + tema;
+    iframe.addEventListener('error', function(){
+      iframe.hidden = true;
+      error.classList.add('is-on');
+    });
+  }
+
+  if (SOFASCORE.configUrl){
+    fetch(SOFASCORE.configUrl, { headers:{ 'Accept':'application/json' } })
+      .then(function(res){ if (!res.ok) throw new Error(); return res.json(); })
+      .then(function(remote){ cargarSofa(Object.assign({}, SOFASCORE, remote)); })
+      .catch(function(){ cargarSofa(SOFASCORE); });
+  } else {
+    cargarSofa(SOFASCORE);
   }
 
   /* Arte de respaldo: se ve mientras carga la miniatura real. */
